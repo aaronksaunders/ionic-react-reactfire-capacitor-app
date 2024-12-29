@@ -1,0 +1,17 @@
+/* For information on how to create your own theme, please see:
+http://ionicframework.com/docs/theming/ */
+.ion-page-hidden {
+  visibility: hidden;
+  opacity: 0;
+  z-index: 0;
+  transform: translateX(100%);
+  transition: 0.3s ease-in;
+}
+
+.ion-page-invisible {
+  opacity: 0;
+}
+
+.ion-page-visible {
+  opacity: 1;
+}
