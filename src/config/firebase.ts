@@ -1,4 +1,11 @@
+import { Capacitor } from "@capacitor/core";
 import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  setPersistence,
+  indexedDBLocalPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
 
 const firebaseConfig = {
   // Your Firebase config here
@@ -11,3 +18,13 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
+
+// Set appropriate persistence based on platform
+setPersistence(
+  auth,
+  Capacitor.isNativePlatform()
+    ? indexedDBLocalPersistence
+    : browserLocalPersistence
+);

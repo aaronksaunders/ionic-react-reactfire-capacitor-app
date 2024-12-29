@@ -82,3 +82,68 @@ service cloud.firestore {
   }
 }
 ```
+
+## Firebase Authentication Persistence
+
+### Known Issues
+
+When using Firebase Authentication with Capacitor, there's a known issue with persistence storage. The default `browserLocalPersistence` doesn't work correctly on mobile platforms.
+
+### Implementation
+
+We handle this by using different persistence methods based on the platform:
+
+- Native platforms (iOS/Android): `indexedDBLocalPersistence`
+- Web: `browserLocalPersistence`
+
+```typescript
+// Example from src/config/firebase.ts
+setPersistence(
+  auth,
+  Capacitor.isNativePlatform()
+    ? indexedDBLocalPersistence
+    : browserLocalPersistence
+);
+```
+
+### References
+
+Firebase Auth Persistence Documentation# Plan
+
+1. Update
+
+README.md
+
+to explain Firebase persistence issue in Capacitor 2. Document workaround implementation 3. Add references to relevant issues and documentation
+
+````markdown
+...existing code...
+
+## Firebase Authentication Persistence
+
+### Known Issues
+
+When using Firebase Authentication with Capacitor, there's a known issue with persistence storage. The default `browserLocalPersistence` doesn't work correctly on mobile platforms.
+
+### Implementation
+
+We handle this by using different persistence methods based on the platform:
+
+- Native platforms (iOS/Android): `indexedDBLocalPersistence`
+- Web: `browserLocalPersistence`
+
+```typescript
+// Example from src/config/firebase.ts
+setPersistence(
+  auth,
+  Capacitor.isNativePlatform()
+    ? indexedDBLocalPersistence
+    : browserLocalPersistence
+);
+```
+````
+
+### References
+
+- [Firebase Auth Persistence Documentation](https://firebase.google.com/docs/auth/web/persistence)
+- [Capacitor Platform Detection](https://capacitorjs.com/docs/apis/platform)
